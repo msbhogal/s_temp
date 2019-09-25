@@ -23,6 +23,10 @@ class Book:
             if i.book == self:
                 yield i
 
+    def add_review(self, user, text):
+        review = Review(self, user, text)
+        state['reviews'].append(review)
+
 
 class User:
     def __init__(self, name):

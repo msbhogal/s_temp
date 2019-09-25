@@ -42,7 +42,14 @@ def test_deletebooks(user_with_book):
 def test_get_reviews(book):
     assert len(list(book.reviews)) == 0
 
-# def test_add_review(book):
+def test_add_review(book, user):
+    book.add_review(user, "Great book")
+    review = list(book.reviews)[0]
+    assert review.user == user
+    assert review.book == book
+    assert review.text == "Great book"
+    
+
     
 
     
