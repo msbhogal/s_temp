@@ -35,7 +35,11 @@ def test_deletebooks(user_with_book):
     user_with_book.delete_book("Testing title") #UNSURE
     assert len(list(user_with_book.books)) == 0
     
+
+def test_get_reviews(user_with_book):
+    book = list(user_with_book.books)[0]
+    assert len(list(book.reviews)) == 0
+
     
-    
-    
+
     

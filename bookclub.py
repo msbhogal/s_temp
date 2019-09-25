@@ -3,12 +3,26 @@ state = {'users': [],
          'shelves' : [],
          'reviews' : []}
 
+class Review:
+    def __init__(self, book, user, text):
+        self.book = book
+        self.user = user
+        self.text = text
+    
+
 class Book:
     def __init__(self, user, name, author, genres):
         self.name = name
         self.author = author
         self.genres = genres
         self.added_by = user
+
+    @property
+    def reviews(self):
+        for i in state['reviews']:
+            if i.book == self:
+                yield i
+
 
 class User:
     def __init__(self, name):
