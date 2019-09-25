@@ -10,6 +10,27 @@ class Shelf:
     def __init__(self, user, name):
         self.name = name
         self.owner = user
+        self.__books = []
+
+    @property
+    def books(self):
+        for i in self.__books:
+            yield i
+        
+    def add_book(self, book):
+        self.__books.append(book)
+    
+    def remove_book(self, book_name):
+        found = None
+        for idx, i in enumerate(self.books):
+            if i.name == book_name:
+                found = idx
+        if found != None:
+            self.__books.pop(found)
+        else:
+            raise KeyError("Book not found")
+
+        
         
 
 class Review:
@@ -70,7 +91,18 @@ class User:
         s = Shelf(self, name)
         state['shelves'].append(s)
         return s
-        
+
+    @property
+    def shelves(self):
+        for i in state['shelves']:
+            if i.owner == self:
+                yield i
+
+    def get_shelf(self, name):
+        for i in state['shelves']:
+            if i.owner == self and i.name == name:
+                return i
+
     def delete_shelf(self, name):
         found = None
         for idx, i in enumerate(state['shelves']):
@@ -80,6 +112,8 @@ class User:
             state['shelves'].pop(found)
         else:
             raise KeyError("Shelf not found")
+
+
         
         
         

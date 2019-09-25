@@ -68,8 +68,21 @@ def test_delete_shelf(user):
     user.delete_shelf("SciFi")
     assert len(list(bookclub.state['shelves'])) == 0
     
-    
+def test_add_book_to_shelf(user, book):
+    s = user.add_shelf("SciFi")
+    assert len(list(s.books)) == 0
+    s.add_book(book)
+    assert len(list(s.books)) == 1
 
+def test_add_book_to_shelf(user, book):
+    s = user.add_shelf("SciFi")
+    assert len(list(s.books)) == 0
+    s.add_book(book)
+    assert len(list(s.books)) == 1
+    s.remove_book(book.name)
+    assert len(list(s.books)) == 0
+
+    
     
 
     
