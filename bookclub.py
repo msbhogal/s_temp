@@ -7,8 +7,9 @@ class DuplicateReview(Exception):
     pass
 
 class Shelf:
-    def __init__(self, name):
+    def __init__(self, user, name):
         self.name = name
+        self.owner = user
         
 
 class Review:
@@ -66,9 +67,19 @@ class User:
                 yield i
 
     def add_shelf(self, name):
-        s = Shelf(name)
+        s = Shelf(self, name)
         state['shelves'].append(s)
         return s
+        
+    def delete_shelf(self, name):
+        found = None
+        for idx, i in enumerate(state['shelves']):
+            if i.owner == self and i.name == name:
+                found = idx
+        if found != None:
+            state['shelves'].pop(found)
+        else:
+            raise KeyError("Shelf not found")
         
         
         
