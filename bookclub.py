@@ -3,6 +3,9 @@ state = {'users': [],
          'shelves' : [],
          'reviews' : []}
 
+class DuplicateReview(Exception):
+    pass
+
 class Review:
     def __init__(self, book, user, text):
         self.book = book
@@ -24,6 +27,9 @@ class Book:
                 yield i
 
     def add_review(self, user, text):
+        for i in self.reviews:
+            if i.user == user:
+                raise DuplicateReview("{} has already added a review".format(user.name))
         review = Review(self, user, text)
         state['reviews'].append(review)
 

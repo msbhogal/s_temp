@@ -48,6 +48,11 @@ def test_add_review(book, user):
     assert review.user == user
     assert review.book == book
     assert review.text == "Great book"
+
+def test_add_repeat_review(book, user):
+    book.add_review(user, "Great book")
+    with pytest.raises(bookclub.DuplicateReview):
+        book.add_review(user, "some other text here")
     
 
     
