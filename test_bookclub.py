@@ -53,6 +53,13 @@ def test_add_repeat_review(book, user):
     book.add_review(user, "Great book")
     with pytest.raises(bookclub.DuplicateReview):
         book.add_review(user, "some other text here")
+
+def test_add_shelf(user):
+    assert len(list(bookclub.state['shelves'])) == 0
+    s = user.add_shelf("SciFi")
+    assert len(list(bookclub.state['shelves'])) == 1
+    assert bookclub.state['shelves'][0] == s
+    
     
 
     

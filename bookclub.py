@@ -6,6 +6,11 @@ state = {'users': [],
 class DuplicateReview(Exception):
     pass
 
+class Shelf:
+    def __init__(self, name):
+        self.name = name
+        
+
 class Review:
     def __init__(self, book, user, text):
         self.book = book
@@ -59,6 +64,13 @@ class User:
         for i in state['books']:
             if i.added_by == self:
                 yield i
+
+    def add_shelf(self, name):
+        s = Shelf(name)
+        state['shelves'].append(s)
+        return s
+        
+        
         
         
         
