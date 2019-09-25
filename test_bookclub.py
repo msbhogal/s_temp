@@ -14,6 +14,9 @@ def user_with_book(request):
     u.add_book("Testing title", "Testing author", ['test_genre1', 'test_genre2'])
     return u
 
+@pytest.fixture
+def book(user_with_book):
+    return next(user_with_book.books)
 
 def test_addbook(user):
     assert not bookclub.state['books']
@@ -36,10 +39,10 @@ def test_deletebooks(user_with_book):
     assert len(list(user_with_book.books)) == 0
     
 
-def test_get_reviews(user_with_book):
-    book = list(user_with_book.books)[0]
+def test_get_reviews(book):
     assert len(list(book.reviews)) == 0
 
+# def test_add_review(book):
     
 
     
